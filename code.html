@@ -104,11 +104,19 @@
         
         /* Brutalist image treatment */
         .brutalist-img {
-            filter: grayscale(100%) contrast(120%);
+            filter: none;
             transition: filter 0.3s ease;
         }
-        .group:hover .brutalist-img {
-            filter: grayscale(0%) contrast(100%);
+        
+        /* Apply brutalist effect (grayscale) and hover only on desktop */
+        @media (min-width: 768px) {
+            .brutalist-img {
+                filter: grayscale(100%) contrast(120%);
+            }
+            
+            .group:hover .brutalist-img {
+                filter: grayscale(0%) contrast(100%);
+            }
         }
     </style>
 <style>
@@ -126,12 +134,12 @@
 </button>
 </header>
 <!-- Search Modal -->
-<div id="search-modal" class="fixed inset-0 bg-black/80 z-[100] hidden items-start justify-center pt-20" onclick="closeSearchOnBackdrop(event)">
+<div class="fixed inset-0 bg-black/80 z-[100] hidden items-start justify-center pt-20" id="search-modal" onclick="closeSearchOnBackdrop(event)">
 <div class="w-full max-w-2xl mx-4" onclick="event.stopPropagation()">
 <div class="bg-surface-container border border-surface-container-high rounded-lg p-4">
-<input type="text" id="search-input" placeholder="Buscar no cardápio..." class="w-full bg-surface-container-lowest border border-surface-container-high text-on-surface text-body-md px-4 py-3 rounded focus:outline-none focus:border-primary-container" oninput="performSearch(this.value)">
-<div id="search-results" class="mt-4 max-h-96 overflow-y-auto"></div>
-<button onclick="toggleSearch()" class="mt-4 w-full bg-primary-container text-on-primary-container font-label-caps text-label-caps px-6 py-3 uppercase hover:bg-primary transition-colors">FECHAR</button>
+<input class="w-full bg-surface-container-lowest border border-surface-container-high text-on-surface text-body-md px-4 py-3 rounded focus:outline-none focus:border-primary-container" id="search-input" oninput="performSearch(this.value)" placeholder="Buscar no cardápio..." type="text"/>
+<div class="mt-4 max-h-96 overflow-y-auto" id="search-results"></div>
+<button class="mt-4 w-full bg-primary-container text-on-primary-container font-label-caps text-label-caps px-6 py-3 uppercase hover:bg-primary transition-colors" onclick="toggleSearch()">FECHAR</button>
 </div>
 </div>
 </div>
@@ -164,7 +172,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Massa crocante recheada com suculenta costela bovina desfiada e temperos da casa.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container mt-auto">
-<img alt="Bolinho de Costela" class="w-full h-full object-cover brutalist-img" data-alt="close up of crispy golden deep fried rib dumplings on a rustic dark wooden board under moody bar lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDiteJJIdLLpb_Fk12J_ilXUcFtGXqUaHZcOqDOEfz1sjfNYdHlcV5Fk_SOjNUiN-mnSLUCDN1fAFF_1Pday_30WeeWZE7NRqJKkzYk3IT8z_cC52wjXXk-a_Gq7c65AD6-w8xUWE9zMaSeD-6erj6DO-sjZt3Z1Un-ytcdB_V6uNAUMO5t_jE-rDLllUGj_zEEwrmeZENesF9hExg2y7JRefEFXJXCUf4o9HZ7O8Z0tcsy18N-6pZGkHZLGRdmGxvLDEGKl1ytyn5A"/>
+<img alt="Bolinho de Costela" class="w-full h-full object-cover brutalist-img" data-alt="close up of crispy golden deep fried rib dumplings on a rustic dark wooden board under moody bar lighting" src="res/img/Porcoes/bolinho_de_costela.webp"/>
 </div>
 </div>
 <!-- Regular Items -->
@@ -174,7 +182,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Iscas de tilápia empanadas e fritas, acompanhadas de molho tártaro artesanal.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Iscas de Tilápia" class="w-full h-full object-cover brutalist-img" data-alt="crispy fried tilapia fish strips served with a lemon wedge on a dark slate plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Iscas de Tilápia" class="w-full h-full object-cover brutalist-img" data-alt="crispy fried tilapia fish strips served with a lemon wedge on a dark slate plate" src="res/img/Porcoes/tilapia.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -183,7 +191,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Picanha premium fatiada, servida na chapa com alho frito e farofa da casa.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Picanha Fatiada" class="w-full h-full object-cover brutalist-img" data-alt="sliced grilled picanha steak medium rare on a wooden cutting board with coarse salt" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaxuXv82wb2ydJSa3gMqqj9aMBA8_JOkrUc6eKIo5LLupiIZcvdppjBbkU1qw8SBQvl4vW2XCCZ1l4XAnVBtaY4LIlZzo1RMYXj1xS053qkeVdgmJO1Dpc9he4143UETY23Yp1ea21JN5CnAgTMxZNIvXz4pdtgcz-SW3xVT3cnxCv8uJbmDcJLzgNwR7L1_GqvmzgZf43CWwGlq1HR7RIjgI_fQggNW7Fu0HVDEeiJn8jOEp1v-BmdGFpMM7l68v7_Vmj5DEVKxXw"/>
+<img alt="Picanha Fatiada" class="w-full h-full object-cover brutalist-img" data-alt="sliced grilled picanha steak medium rare on a wooden cutting board with coarse salt" src="res/img/Porcoes/picanha.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -192,7 +200,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Costelinha suína assada lentamente, finalizada com molho barbecue defumado.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Costelinha" class="w-full h-full object-cover brutalist-img" data-alt="bbq pork ribs glistening with dark sauce on a metallic tray in dim lighting" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGpZ3w9HggEKM9pQGlXy2B5y45me2t_WpsYvp3efhLcIeChqprFUIElfIsFHz1LrXoJB3cf_ziG0gB9ohwVEJ-6yorUJ40fE2K_0IpRBxDlHyagqQx6c9aesfwcxmOUGoTwycEqWK972vM4ZfzayLI7YorZCQ_wXaj_F-oJGN6qA9rkNtKa-RSHQ3FJCz_Xmm8Wd4VjXKHjaeodUbCu5WUb2-MnhrdpAWHBE2fJeUakReasaa5lLJep9RtsVOWbDpx0GASpE-FDhh1"/>
+<img alt="Costelinha" class="w-full h-full object-cover brutalist-img" data-alt="bbq pork ribs glistening with dark sauce on a metallic tray in dim lighting" src="res/img/Porcoes/costelinha.webp"/>
 </div>
 </div>
 <!-- Novas Porções -->
@@ -202,7 +210,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">450g aprox., acompanha mandioca cozida e molho barbecue.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Cupim" class="w-full h-full object-cover brutalist-img" data-alt="slow cooked cupim beef with cassava and barbecue sauce on a wooden board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaxuXv82wb2ydJSa3gMqqj9aMBA8_JOkrUc6eKIo5LLupiIZcvdppjBbkU1qw8SBQvl4vW2XCCZ1l4XAnVBtaY4LIlZzo1RMYXj1xS053qkeVdgmJO1Dpc9he4143UETY23Yp1ea21JN5CnAgTMxZNIvXz4pdtgcz-SW3xVT3cnxCv8uJbmDcJLzgNwR7L1_GqvmzgZf43CWwGlq1HR7RIjgI_fQggNW7Fu0HVDEeiJn8jOEp1v-BmdGFpMM7l68v7_Vmj5DEVKxXw"/>
+<img alt="Cupim" class="w-full h-full object-cover brutalist-img" data-alt="slow cooked cupim beef with cassava and barbecue sauce on a wooden board" src="res/img/Porcoes/cupim.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -211,7 +219,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">450g aprox. panceta, acompanha chimichurri.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Torresmo Verde" class="w-full h-full object-cover brutalist-img" data-alt="crispy pork belly with chimichurri sauce on a dark plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGpZ3w9HggEKM9pQGlXy2B5y45me2t_WpsYvp3efhLcIeChqprFUIElfIsFHz1LrXoJB3cf_ziG0gB9ohwVEJ-6yorUJ40fE2K_0IpRBxDlHyagqQx6c9aesfwcxmOUGoTwycEqWK972vM4ZfzayLI7YorZCQ_wXaj_F-oJGN6qA9rkNtKa-RSHQ3FJCz_Xmm8Wd4VjXKHjaeodUbCu5WUb2-MnhrdpAWHBE2fJeUakReasaa5lLJep9RtsVOWbDpx0GASpE-FDhh1"/>
+<img alt="Torresmo Verde" class="w-full h-full object-cover brutalist-img" data-alt="crispy pork belly with chimichurri sauce on a dark plate" src="res/img/Porcoes/torresmo_verde.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -220,7 +228,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">450g aprox., acompanha molho barbecue.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Frango a Passarinho" class="w-full h-full object-cover brutalist-img" data-alt="crispy fried chicken pieces with barbecue sauce on a rustic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Frango a Passarinho" class="w-full h-full object-cover brutalist-img" data-alt="crispy fried chicken pieces with barbecue sauce on a rustic plate" src="res/img/Porcoes/frango_a_passarinho.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -229,7 +237,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Flor de salame, linguicinha defumada, azeitona, cebolinha em conserva e queijo gorgonzola.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Tábua de Frios" class="w-full h-full object-cover brutalist-img" data-alt="charcuterie board with salami cheese and olives on a wooden board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAaxuXv82wb2ydJSa3gMqqj9aMBA8_JOkrUc6eKIo5LLupiIZcvdppjBbkU1qw8SBQvl4vW2XCCZ1l4XAnVBtaY4LIlZzo1RMYXj1xS053qkeVdgmJO1Dpc9he4143UETY23Yp1ea21JN5CnAgTMxZNIvXz4pdtgcz-SW3xVT3cnxCv8uJbmDcJLzgNwR7L1_GqvmzgZf43CWwGlq1HR7RIjgI_fQggNW7Fu0HVDEeiJn8jOEp1v-BmdGFpMM7l68v7_Vmj5DEVKxXw"/>
+<img alt="Tábua de Frios" class="w-full h-full object-cover brutalist-img" data-alt="charcuterie board with salami cheese and olives on a wooden board" src="res/img/Porcoes/tabua_de_frios.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -238,7 +246,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Batatas fininhas com cheddar e bacon, acompanha maionese da casa.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Batata Pork's" class="w-full h-full object-cover brutalist-img" data-alt="thin fries with melted cheddar and bacon bits in a rustic bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Batata Pork's" class="w-full h-full object-cover brutalist-img" data-alt="thin fries with melted cheddar and bacon bits in a rustic bowl" src="res/img/Porcoes/batata_porks.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -247,7 +255,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Batatas fininhas, acompanha maionese da casa.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Batata Frita" class="w-full h-full object-cover brutalist-img" data-alt="golden crispy thin french fries in a rustic basket" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Batata Frita" class="w-full h-full object-cover brutalist-img" data-alt="golden crispy thin french fries in a rustic basket" src="res/img/Porcoes/batata.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -256,7 +264,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">450g aprox., acompanha vinagrete e pães.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Calabresa Acebolada" class="w-full h-full object-cover brutalist-img" data-alt="grilled calabresa sausage with onions in a dark plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGpZ3w9HggEKM9pQGlXy2B5y45me2t_WpsYvp3efhLcIeChqprFUIElfIsFHz1LrXoJB3cf_ziG0gB9ohwVEJ-6yorUJ40fE2K_0IpRBxDlHyagqQx6c9aesfwcxmOUGoTwycEqWK972vM4ZfzayLI7YorZCQ_wXaj_F-oJGN6qA9rkNtKa-RSHQ3FJCz_Xmm8Wd4VjXKHjaeodUbCu5WUb2-MnhrdpAWHBE2fJeUakReasaa5lLJep9RtsVOWbDpx0GASpE-FDhh1"/>
+<img alt="Calabresa Acebolada" class="w-full h-full object-cover brutalist-img" data-alt="grilled calabresa sausage with onions in a dark plate" src="res/img/Porcoes/calabresa_acebolada.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -265,7 +273,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">8 unidades, acompanha molho cheddar.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Palitos de Frango" class="w-full h-full object-cover brutalist-img" data-alt="chicken sticks with cheddar sauce in a rustic plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Palitos de Frango" class="w-full h-full object-cover brutalist-img" data-alt="chicken sticks with cheddar sauce in a rustic plate" src="res/img/Porcoes/palitos_de_frango.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -274,10 +282,10 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">8 unidades (carne, queijo ou misto), acompanha vinagrete.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Pastelzinho" class="w-full h-full object-cover brutalist-img" data-alt="crispy Brazilian pastel pastries on a dark plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGpZ3w9HggEKM9pQGlXy2B5y45me2t_WpsYvp3efhLcIeChqprFUIElfIsFHz1LrXoJB3cf_ziG0gB9ohwVEJ-6yorUJ40fE2K_0IpRBxDlHyagqQx6c9aesfwcxmOUGoTwycEqWK972vM4ZfzayLI7YorZCQ_wXaj_F-oJGN6qA9rkNtKa-RSHQ3FJCz_Xmm8Wd4VjXKHjaeodUbCu5WUb2-MnhrdpAWHBE2fJeUakReasaa5lLJep9RtsVOWbDpx0GASpE-FDhh1"/>
+<img alt="Pastelzinho" class="w-full h-full object-cover brutalist-img" data-alt="crispy Brazilian pastel pastries on a dark plate" src="res/img/Porcoes/pastelzinho.webp"/>
 </div>
 </div>
-<div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
+<!-- <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
 <div class="p-4 flex flex-col flex-grow">
 <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Porção de Mini Kibe</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">8 unidades, acompanha molho de iogurte.</p>
@@ -285,7 +293,7 @@
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
 <img alt="Mini Kibe" class="w-full h-full object-cover brutalist-img" data-alt="mini kibe balls with yogurt sauce on a dark plate" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
 </div>
-</div>
+</div> -->
 </div>
 </section>
 <!-- 2. LANCHES -->
@@ -298,7 +306,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Blend da casa 180g, queijo prato derretido, fatias generosas de bacon crocante, alface americana, tomate e maionese artesanal no pão brioche.</p>
 </div>
 <div class="aspect-[4/3] w-full overflow-hidden mt-auto">
-<img alt="Pork's Burguer Bacon" class="w-full h-full object-cover brutalist-img" data-alt="tall artisanal smash burger with melting cheddar cheese and crispy bacon on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc1fVtntjwGqfIog16nyRhwwit4Jpm-6DFBeMNbT4m-3_QtnFnVAPrK8ZW9-Ya8yrh56kiDOnk9WUzSwVBfaU5s9xeK9nSLVoKRrfN5tQXptfQ0P6nnr5nUkf8RLlMR9FAPfcVYSLrA40lG-PpYQV__g_mMEsT3v3Wzu5nsfQOcGF3CQwCZBxakFjnN8EpviL_xTNB4ALS7W9L0gPNjn25yMcG_UuQ9bWVi0rPV2D8hQLd2uuKhBR4CWzhX-VUBehpceK-L2McuSwU"/>
+<img alt="Pork's Burguer Bacon" class="w-full h-full object-cover brutalist-img" data-alt="tall artisanal smash burger with melting cheddar cheese and crispy bacon on a dark background" src="res/img/Lanches/porks_burguer_bacon.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high flex flex-col group">
@@ -307,7 +315,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Bovino 180g, cheddar, alface, tomate, maionese, acompanha fritas.</p>
 </div>
 <div class="aspect-[4/3] w-full overflow-hidden mt-auto">
-<img alt="Pork's Burguer Salada" class="w-full h-full object-cover brutalist-img" data-alt="artisan beef burger with lettuce tomato and mayo on a dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc1fVtntjwGqfIog16nyRhwwit4Jpm-6DFBeMNbT4m-3_QtnFnVAPrK8ZW9-Ya8yrh56kiDOnk9WUzSwVBfaU5s9xeK9nSLVoKRrfN5tQXptfQ0P6nnr5nUkf8RLlMR9FAPfcVYSLrA40lG-PpYQV__g_mMEsT3v3Wzu5nsfQOcGF3CQwCZBxakFjnN8EpviL_xTNB4ALS7W9L0gPNjn25yMcG_UuQ9bWVi0rPV2D8hQLd2uuKhBR4CWzhX-VUBehpceK-L2McuSwU"/>
+<img alt="Pork's Burguer Salada" class="w-full h-full object-cover brutalist-img" data-alt="artisan beef burger with lettuce tomato and mayo on a dark background" src="res/img/Lanches/porks_burguer_salada.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high flex flex-col group">
@@ -316,7 +324,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Bovino 180g, cheddar derretido, pão australiano, acompanha fritas.</p>
 </div>
 <div class="aspect-[4/3] w-full overflow-hidden mt-auto">
-<img alt="Pork's Cheddar Melt" class="w-full h-full object-cover brutalist-img" data-alt="beef burger with melted cheddar on australian bread on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc1fVtntjwGqfIog16nyRhwwit4Jpm-6DFBeMNbT4m-3_QtnFnVAPrK8ZW9-Ya8yrh56kiDOnk9WUzSwVBfaU5s9xeK9nSLVoKRrfN5tQXptfQ0P6nnr5nUkf8RLlMR9FAPfcVYSLrA40lG-PpYQV__g_mMEsT3v3Wzu5nsfQOcGF3CQwCZBxakFjnN8EpviL_xTNB4ALS7W9L0gPNjn25yMcG_UuQ9bWVi0rPV2D8hQLd2uuKhBR4CWzhX-VUBehpceK-L2McuSwU"/>
+<img alt="Pork's Cheddar Melt" class="w-full h-full object-cover brutalist-img" data-alt="beef burger with melted cheddar on australian bread on dark background" src="res/img/Lanches/porks_cheddar_melt.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high flex flex-col group">
@@ -325,7 +333,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Frango empanado, cheddar, alface, tomate, maionese, acompanha fritas.</p>
 </div>
 <div class="aspect-[4/3] w-full overflow-hidden mt-auto">
-<img alt="Pork's Chicken" class="w-full h-full object-cover brutalist-img" data-alt="crispy chicken burger with lettuce tomato and cheddar on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc1fVtntjwGqfIog16nyRhwwit4Jpm-6DFBeMNbT4m-3_QtnFnVAPrK8ZW9-Ya8yrh56kiDOnk9WUzSwVBfaU5s9xeK9nSLVoKRrfN5tQXptfQ0P6nnr5nUkf8RLlMR9FAPfcVYSLrA40lG-PpYQV__g_mMEsT3v3Wzu5nsfQOcGF3CQwCZBxakFjnN8EpviL_xTNB4ALS7W9L0gPNjn25yMcG_UuQ9bWVi0rPV2D8hQLd2uuKhBR4CWzhX-VUBehpceK-L2McuSwU"/>
+<img alt="Pork's Chicken" class="w-full h-full object-cover brutalist-img" data-alt="crispy chicken burger with lettuce tomato and cheddar on dark background" src="res/img/Lanches/porks_chicken.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high flex flex-col group">
@@ -334,7 +342,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant mb-3">Tradicional sanduíche argentino com linguiça artesanal grelhada, chimichurri fresco e maionese defumada no pão baguete crocante.</p>
 </div>
 <div class="aspect-[4/3] w-full overflow-hidden mt-auto">
-<img alt="Choripan" class="w-full h-full object-cover brutalist-img" data-alt="choripan sandwich with grilled sausage crusty bread and chimichurri sauce on a wooden board" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDc1fVtntjwGqfIog16nyRhwwit4Jpm-6DFBeMNbT4m-3_QtnFnVAPrK8ZW9-Ya8yrh56kiDOnk9WUzSwVBfaU5s9xeK9nSLVoKRrfN5tQXptfQ0P6nnr5nUkf8RLlMR9FAPfcVYSLrA40lG-PpYQV__g_mMEsT3v3Wzu5nsfQOcGF3CQwCZBxakFjnN8EpviL_xTNB4ALS7W9L0gPNjn25yMcG_UuQ9bWVi0rPV2D8hQLd2uuKhBR4CWzhX-VUBehpceK-L2McuSwU"/>
+<img alt="Choripan" class="w-full h-full object-cover brutalist-img" data-alt="choripan sandwich with grilled sausage crusty bread and chimichurri sauce on a wooden board" src="res/img/Lanches/choripan.webp"/>
 </div>
 </div>
 </div>
@@ -361,7 +369,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Parmesão e lemon pepper.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Crocante de Polvilho" class="w-full h-full object-cover brutalist-img" data-alt="crispy polvilho chips with parmesan and lemon pepper in a rustic bowl" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Crocante de Polvilho" class="w-full h-full object-cover brutalist-img" data-alt="crispy polvilho chips with parmesan and lemon pepper in a rustic bowl" src="res/img/Aperitivos/crocante_de_polvilho.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -370,7 +378,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Servido no copinho.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Amendoim" class="w-full h-full object-cover brutalist-img" data-alt="roasted peanuts served in a small cup on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Amendoim" class="w-full h-full object-cover brutalist-img" data-alt="roasted peanuts served in a small cup on dark background" src="res/img/Aperitivos/amendoim.webp"/>
 </div>
 </div>
 </div>
@@ -378,7 +386,7 @@
 <!-- 4. PIZZA -->
 <section class="scroll-mt-48" id="pizza">
 <h2 class="font-headline-lg text-headline-lg text-primary-container mb-6 border-l-4 border-primary-container pl-4">PIZZA</h2>
-<p class="font-body-md text-body-md text-on-surface-variant mb-4 text-center">Parceria Sr. Pork's & Mori Pizzas</p>
+<p class="font-body-md text-body-md text-on-surface-variant mb-4 text-center">Parceria Sr. Pork's &amp; Mori Pizzas</p>
 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-gutter mb-8">
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Pizza Mussarela">
 <div class="p-4 flex flex-col flex-grow">
@@ -386,7 +394,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Molho de tomate, mussarela e orégano.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Pizza Mussarela" class="w-full h-full object-cover brutalist-img" data-alt="cheese pizza on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Pizza Mussarela" class="w-full h-full object-cover brutalist-img" data-alt="cheese pizza on dark background" src="res/img/Pizza/mussarela.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Pizza Marguerita">
@@ -395,7 +403,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Molho de tomate, mussarela, tomate e manjericão.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Pizza Marguerita" class="w-full h-full object-cover brutalist-img" data-alt="margherita pizza with fresh basil on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Pizza Marguerita" class="w-full h-full object-cover brutalist-img" data-alt="margherita pizza with fresh basil on dark background" src="res/img/Pizza/marguerita.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Pizza Calabresa">
@@ -404,7 +412,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Molho de tomate, mussarela e calabresa fatiada.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Pizza Calabresa" class="w-full h-full object-cover brutalist-img" data-alt="calabresa pizza on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Pizza Calabresa" class="w-full h-full object-cover brutalist-img" data-alt="calabresa pizza on dark background" src="res/img/Pizza/calabresa.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Pizza Calabresa com Catupiry">
@@ -413,7 +421,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Molho de tomate, mussarela, calabresa e catupiry.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Pizza Calabresa com Catupiry" class="w-full h-full object-cover brutalist-img" data-alt="calabresa pizza with catupiry on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Pizza Calabresa com Catupiry" class="w-full h-full object-cover brutalist-img" data-alt="calabresa pizza with catupiry on dark background" src="res/img/Pizza/calabresa_com_catupiry.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Pizza Morango com Nutella">
@@ -422,7 +430,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Nutella com morangos frescos e leite condensado.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Pizza Morango com Nutella" class="w-full h-full object-cover brutalist-img" data-alt="strawberry nutella pizza dessert on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Pizza Morango com Nutella" class="w-full h-full object-cover brutalist-img" data-alt="strawberry nutella pizza dessert on dark background" src="res/img/Pizza/morango_com_nutella.webp"/>
 </div>
 </div>
 </div>
@@ -438,7 +446,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Chopp Pilsen Brahma · Chopp Sdruxulo</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Chopp" class="w-full h-full object-cover brutalist-img" data-alt="draft beer in a glass mug on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Chopp" class="w-full h-full object-cover brutalist-img" data-alt="draft beer in a glass mug on dark background" src="res/img/Bebidas/chopp_pilsen.webp"/>
 </div>
 </div>
 <!-- Bebidas Dose/Garrafa -->
@@ -448,7 +456,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Campari · Smirnoff · Absolut · Ciroc · Red Label · Black Label · Jack Daniel's · Tanqueray</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Bebidas" class="w-full h-full object-cover brutalist-img" data-alt="assorted bottles of spirits on a dark bar shelf" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Bebidas" class="w-full h-full object-cover brutalist-img" data-alt="assorted bottles of spirits on a dark bar shelf" src="res/img/Bebidas/bebidas.webp"/>
 </div>
 </div>
 <!-- Long Neck -->
@@ -458,11 +466,11 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Amstel · Budweiser · Stella Artois · Stella Artois Pure Gold · Heineken · Corona</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Long Neck" class="w-full h-full object-cover brutalist-img" data-alt="long neck beer bottles on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Long Neck" class="w-full h-full object-cover brutalist-img" data-alt="long neck beer bottles on dark background" src="res/img/Bebidas/longneck.webp"/>
 </div>
 </div>
 <!-- Zero Álcool -->
-<div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
+<!-- <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
 <div class="p-4 flex flex-col flex-grow">
 <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Zero Álcool</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Heineken Zero · Corona Zero</p>
@@ -470,7 +478,7 @@
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
 <img alt="Zero Álcool" class="w-full h-full object-cover brutalist-img" data-alt="non-alcoholic beer bottles on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
 </div>
-</div>
+</div> -->
 <!-- Drink Pronto -->
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
 <div class="p-4 flex flex-col flex-grow">
@@ -478,7 +486,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Beats Long Neck · Like Spritz (lata) — coquetel refrescante à base de suco de uvas naturais</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Drink Pronto" class="w-full h-full object-cover brutalist-img" data-alt="ready to drink cocktails in cans on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Drink Pronto" class="w-full h-full object-cover brutalist-img" data-alt="ready to drink cocktails in cans on dark background" src="res/img/Bebidas/drink_pronto.webp"/>
 </div>
 </div>
 <!-- Água / Suco / Refri -->
@@ -488,7 +496,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Água sem gás · Água com gás · Refrigerante Lata · H2OH! · Red Bull · Sucos</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Refrigerantes" class="w-full h-full object-cover brutalist-img" data-alt="soft drinks and water bottles on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Refrigerantes" class="w-full h-full object-cover brutalist-img" data-alt="soft drinks and water bottles on dark background" src="res/img/Bebidas/agua.webp"/>
 </div>
 </div>
 </div>
@@ -504,7 +512,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Tradicional brasileira. Disponível em copo ou jarra.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Caipirinha Cachaça" class="w-full h-full object-cover brutalist-img" data-alt="caipirinha with cachaça on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Caipirinha Cachaça" class="w-full h-full object-cover brutalist-img" data-alt="caipirinha with cachaça on dark background" src="res/img/CAIPIRINHA/caipirinha_de_limao.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Caipirinha Vodka">
@@ -513,7 +521,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Versão com vodka. Disponível em copo ou jarra.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Caipirinha Vodka" class="w-full h-full object-cover brutalist-img" data-alt="caipirinha with vodka on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Caipirinha Vodka" class="w-full h-full object-cover brutalist-img" data-alt="caipirinha with vodka on dark background" src="res/img/CAIPIRINHA/caipirinha_de_morango.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Caipirinha Saquê">
@@ -522,16 +530,17 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Versão com saquê japonês. Disponível em copo ou jarra.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Caipirinha Saquê" class="w-full h-full object-cover brutalist-img" data-alt="caipirinha with sake on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Caipirinha Saquê" class="w-full h-full object-cover brutalist-img" data-alt="caipirinha with sake on dark background" src="res/img/CAIPIRINHA/caipirinha_de_abacaxi.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Caipirinha Kids">
+<div class="absolute top-3 right-3 z-10 bg-secondary text-on-secondary font-label-caps text-label-caps px-3 py-1 uppercase rounded-full">SEM ÁLCOOL</div>
 <div class="p-4 flex flex-col flex-grow">
 <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Kids (H2O)</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Sem álcool, base H2O. Disponível em copo ou jarra.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Caipirinha Kids" class="w-full h-full object-cover brutalist-img" data-alt="non-alcoholic caipirinha on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Caipirinha Kids" class="w-full h-full object-cover brutalist-img" data-alt="non-alcoholic caipirinha on dark background" src="res/img/CAIPIRINHA/caipirinha_kids.webp"/>
 </div>
 </div>
 </div>
@@ -546,7 +555,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Gin, vermuth rosso, campari e casca de laranja.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Negroni" class="w-full h-full object-cover brutalist-img" data-alt="negroni cocktail in a rocks glass with orange peel" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Negroni" class="w-full h-full object-cover brutalist-img" data-alt="negroni cocktail in a rocks glass with orange peel" src="res/img/Drinks/negroni.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -555,7 +564,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Aperol, espumante brut, água c/ gás e fatia de laranja.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Aperol Spritz" class="w-full h-full object-cover brutalist-img" data-alt="aperol spritz in a wine glass with orange slice" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Aperol Spritz" class="w-full h-full object-cover brutalist-img" data-alt="aperol spritz in a wine glass with orange slice" src="res/img/Drinks/aperol_spritz.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -564,7 +573,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Vodka, suco de limão, xarope de gengibre, Schweppes citrus, angostura e espuma de limão c/ gengibre.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Moscow Mule" class="w-full h-full object-cover brutalist-img" data-alt="moscow mule in a copper mug with lime" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Moscow Mule" class="w-full h-full object-cover brutalist-img" data-alt="moscow mule in a copper mug with lime" src="res/img/Drinks/moscow_mule.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -573,7 +582,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Rum, suco de limão, xarope de açúcar, hortelã e água c/ gás.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Mojito" class="w-full h-full object-cover brutalist-img" data-alt="mojito cocktail in a highball glass with mint leaves" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Mojito" class="w-full h-full object-cover brutalist-img" data-alt="mojito cocktail in a highball glass with mint leaves" src="res/img/Drinks/mojito.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -582,7 +591,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Tequila prata, licor de laranja, suco de limão, sal na borda e fatia de limão.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Margarita" class="w-full h-full object-cover brutalist-img" data-alt="margarita in a salt-rimmed glass with lime wedge" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Margarita" class="w-full h-full object-cover brutalist-img" data-alt="margarita in a salt-rimmed glass with lime wedge" src="res/img/Drinks/margarita.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -591,7 +600,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Jack Daniel's, polpa de maracujá, suco de limão, xarope de açúcar, Schweppes citrus e fatia de limão.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Maracujack" class="w-full h-full object-cover brutalist-img" data-alt="maracujack cocktail with passion fruit and lime" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Maracujack" class="w-full h-full object-cover brutalist-img" data-alt="maracujack cocktail with passion fruit and lime" src="res/img/Drinks/maracujack.webp"/>
 </div>
 </div>
 </div>
@@ -606,7 +615,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Gin, tônica, limão e zimbro.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Gin Tradicional" class="w-full h-full object-cover brutalist-img" data-alt="gin and tonic in a highball glass with lime" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Gin Tradicional" class="w-full h-full object-cover brutalist-img" data-alt="gin and tonic in a highball glass with lime" src="res/img/Drinks com Gin/gin_tonica.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -615,7 +624,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Gin, xarope de tangerina e Red Bull.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Gin Tropical" class="w-full h-full object-cover brutalist-img" data-alt="gin cocktail with tropical flavors in a glass" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Gin Tropical" class="w-full h-full object-cover brutalist-img" data-alt="gin cocktail with tropical flavors in a glass" src="res/img/Drinks com Gin/gin_tropical.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -624,7 +633,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Gin, xarope de morango e Red Bull Melancia.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Gin Red" class="w-full h-full object-cover brutalist-img" data-alt="gin cocktail with strawberry and watermelon red bull" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Gin Red" class="w-full h-full object-cover brutalist-img" data-alt="gin cocktail with strawberry and watermelon red bull" src="res/img/Drinks com Gin/red_gin.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -633,7 +642,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Gin, xarope de frutas vermelhas, H2OH limoneto, Red Bull Melancia e espuma de frutas vermelhas.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Lady Pink" class="w-full h-full object-cover brutalist-img" data-alt="pink gin cocktail with red fruits and foam" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Lady Pink" class="w-full h-full object-cover brutalist-img" data-alt="pink gin cocktail with red fruits and foam" src="res/img/Drinks com Gin/lady_pink.webp"/>
 </div>
 </div>
 </div>
@@ -648,7 +657,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Licor 43, suco de laranja, suco de limão e Red Bull Tropical.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="43 Tropical" class="w-full h-full object-cover brutalist-img" data-alt="licor 43 cocktail with tropical fruits on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="43 Tropical" class="w-full h-full object-cover brutalist-img" data-alt="licor 43 cocktail with tropical fruits on dark background" src="res/img/Coqueteis da Casa/43 tropical.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -657,7 +666,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Amarula, leite de coco, abacaxi e leite condensado.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Amarula Colada" class="w-full h-full object-cover brutalist-img" data-alt="amarula colada cocktail with coconut and pineapple" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Amarula Colada" class="w-full h-full object-cover brutalist-img" data-alt="amarula colada cocktail with coconut and pineapple" src="res/img/Coqueteis da Casa/amarula_colada.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -666,7 +675,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Ballena, morango e leite condensado.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Danoninho" class="w-full h-full object-cover brutalist-img" data-alt="danoninho cocktail with strawberry on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Danoninho" class="w-full h-full object-cover brutalist-img" data-alt="danoninho cocktail with strawberry on dark background" src="res/img/Coqueteis da Casa/danoninho.webp"/>
 </div>
 </div>
 </div>
@@ -693,7 +702,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Puro ou com gelo.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Licor 43" class="w-full h-full object-cover brutalist-img" data-alt="single shot glass of creamy liqueur on a dark textured surface" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqkL3cV_ryVk6y3056gP-UUYSwhkB-8v-TjtxadCl7H9yYKw7x-09IVvDa8OtnOp2ViV1udq5EyXUpKWxe7ynyPF9r5XVxvbAXNKgwhktZxUiqz7yu8fj1PJiuXEL8NB45Ace2oaLFEO1RAbzW2rNeQ0tytFDgoM9tYdyoTQBC6Lv90MGuVVc2CQcALyCY_N6qMbK78UH0TtEjMqUblE1K0ywqacKR7LgWJEo7eQ5DpofyEU22i6owvupEjJWl2d4HkJKGBnRPUldg"/>
+<img alt="Licor 43" class="w-full h-full object-cover brutalist-img" data-alt="single shot glass of creamy liqueur on a dark textured surface" src="res/img/Bebidas/lincor_43.webp"/>
 </div>
 </div>
 <!-- Ballena -->
@@ -703,7 +712,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Licor de morango com tequila.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Ballena" class="w-full h-full object-cover brutalist-img" data-alt="single shot glass of clear strawberry flavored liqueur on a dark bar top" src="https://lh3.googleusercontent.com/aida-public/AB6AXuBGoy1GUiF7Jgsgoo-_UWEkK1CSDz1ZpLbCACUqK1xel7c7lEilRnADA-Vnx8AWG-4Yj-nFkIRebN79Wl68f4m2dfpW-rHWGU_skBcKAOiyBH054A_J_1PgrPLliMNTQAv0X1phqJeGUwDLfLbK3BYt0u7DkZGlNLrS4FbpKU-r_cNjXaRimmjlFm1FAlMut-p-Jz4y3gdQvB2464KyqQcl-7-3Jk9_OcWLjddHcuY9TRX4ctBLMFd82hniHc9W6op0OYWoVjDut8MD"/>
+<img alt="Ballena" class="w-full h-full object-cover brutalist-img" data-alt="single shot glass of clear strawberry flavored liqueur on a dark bar top" src="res/img/Bebidas/shot_ballena.webp"/>
 </div>
 </div>
 <!-- Amarula -->
@@ -713,29 +722,29 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Licor de marula africano.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Amarula" class="w-full h-full object-cover brutalist-img" data-alt="amarula liqueur shot glass on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Amarula" class="w-full h-full object-cover brutalist-img" data-alt="amarula liqueur shot glass on dark background" src="res/img/Bebidas/amarula.webp"/>
 </div>
 </div>
 <!-- Cachaça Busca Vida -->
-<div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Cachaça Busca Vida">
+<!-- <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Cachaça Busca Vida">
 <div class="p-4 flex flex-col flex-grow">
 <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Cachaça Busca Vida</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Cachaça premium artesanal.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Cachaça Busca Vida" class="w-full h-full object-cover brutalist-img" data-alt="cachaça shot glass on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Cachaça Busca Vida" class="w-full h-full object-cover brutalist-img" data-alt="cachaça shot glass on dark background" src="res/img/Bebidas/cachaca_busca_vida.webp"/>
 </div>
-</div>
+</div> -->
 <!-- Cachaça Sr. Porks -->
-<div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Cachaça Sr. Porks">
+<!-- <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Cachaça Sr. Porks">
 <div class="p-4 flex flex-col flex-grow">
 <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Cachaça Sr. Porks</h3>
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Cachaça da casa.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Cachaça Sr. Porks" class="w-full h-full object-cover brutalist-img" data-alt="cachaça sr porks shot glass on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Cachaça Sr. Porks" class="w-full h-full object-cover brutalist-img" data-alt="cachaça sr porks shot glass on dark background" src="res/img/Bebidas/cachaca_sr_porks.webp"/>
 </div>
-</div>
+</div> -->
 <!-- Tequila Jose Cuervo Gold -->
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group" data-name="Tequila Jose Cuervo Gold">
 <div class="p-4 flex flex-col flex-grow">
@@ -743,7 +752,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Tequila reposado premium.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Tequila Jose Cuervo Gold" class="w-full h-full object-cover brutalist-img" data-alt="tequila gold shot glass on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Tequila Jose Cuervo Gold" class="w-full h-full object-cover brutalist-img" data-alt="tequila gold shot glass on dark background" src="res/img/Bebidas/Tequila_Jose_Cuervo_Gold.webp"/>
 </div>
 </div>
 <!-- Tequila Jose Cuervo Silver -->
@@ -753,7 +762,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Tequila branca jovem.</p>
 </div>
 <div class="aspect-video w-full overflow-hidden bg-surface-container-high mt-auto">
-<img alt="Tequila Jose Cuervo Silver" class="w-full h-full object-cover brutalist-img" data-alt="tequila silver shot glass on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Tequila Jose Cuervo Silver" class="w-full h-full object-cover brutalist-img" data-alt="tequila silver shot glass on dark background" src="res/img/Bebidas/Tequila_Jose_Cuervo_silver.webp"/>
 </div>
 </div>
 </div>
@@ -769,7 +778,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Xarope de curaçau blue, suco de limão siciliano e soda limonada. Refrescante e cítrico.</p>
 </div>
 <div class="aspect-[3/4] w-full overflow-hidden bg-surface-container mt-auto">
-<img alt="Blue Lagoon Zero" class="w-full h-full object-cover brutalist-img" data-alt="bright blue non alcoholic cocktail in a tall glass with ice and lemon slice on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuDjj6Q6Zf3W5lcGqKsB8dUFr0lkGu3yoI-YAC9YQaQ3HD6HyjrziVuQg43sIFtO34boySDXuEOmxyIUwkCweA3yB6nCAXEEF2zg-Yktw9e3EU3EGu7yV6R9zZ4ZEnwPpZc94hWHEGrNEJJCspyU26M81TV9qzbwIDuFsFvVY5eJ7zLNM1jxYPf9hhZzMpjiPE7aRlkuEmDSz-rGUck2LN1_ID7h7rdCZUk-mHh-R44aX9fpknwFqoKKTDjAQELZo-5u4os4GoulWc3K"/>
+<img alt="Blue Lagoon Zero" class="w-full h-full object-cover brutalist-img" data-alt="bright blue non alcoholic cocktail in a tall glass with ice and lemon slice on dark background" src="res/img/Mocktails/lagoa_azul.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -779,7 +788,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Limonada clássica com um toque de xarope de cranberry e frutas vermelhas frescas.</p>
 </div>
 <div class="aspect-[3/4] w-full overflow-hidden bg-surface-container mt-auto">
-<img alt="Pink Limonade" class="w-full h-full object-cover brutalist-img" data-alt="vibrant pink lemonade in a mason jar filled with ice and fresh fruit slices on a wooden table" src="https://lh3.googleusercontent.com/aida-public/AB6AXuAQS7QaGbk51S21upL3YRK_ZkmXGVKQohbu5hr4i8_ic4TbeM4umqLz4zsJxLnf5yOP7jKPTaasTZQFW0IyFSOuL3jcLd8CEmlEQ7q7N76sgR4fQwCKmnr5LwPbnZREQHrZfQpShSlWQW-pqmLaC27VeYxQiEAgZ3hr-cc5lO1jAofIeo8vknx_aKjbTHDxMK2ZQSN1ntbLGAWXOgUuPXz8i64FYzpPaaIyDQTaeKDhl9uAzPDQ5NnBfs4whTiGoQGaSa3IaGfrwxi-"/>
+<img alt="Pink Limonade" class="w-full h-full object-cover brutalist-img" data-alt="vibrant pink lemonade in a mason jar filled with ice and fresh fruit slices on a wooden table" src="res/img/Mocktails/pink_lemonade.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -789,7 +798,7 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">Xarope sabor da sua escolha, água c/ gás e fatia de laranja.</p>
 </div>
 <div class="aspect-[3/4] w-full overflow-hidden bg-surface-container mt-auto">
-<img alt="Soda Italiana" class="w-full h-full object-cover brutalist-img" data-alt="italian soda with syrup and orange slice on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Soda Italiana" class="w-full h-full object-cover brutalist-img" data-alt="italian soda with syrup and orange slice on dark background" src="res/img/Mocktails/soda_intaliana_de_maca.webp"/>
 </div>
 </div>
 <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
@@ -799,10 +808,10 @@
 <p class="font-body-sm text-body-sm text-on-surface-variant flex-grow mb-3">H2OH limoneto, xarope de frutas vermelhas, Red Bull Melancia e espuma de frutas vermelhas.</p>
 </div>
 <div class="aspect-[3/4] w-full overflow-hidden bg-surface-container mt-auto">
-<img alt="Lady Pink Sem Álcool" class="w-full h-full object-cover brutalist-img" data-alt="non-alcoholic lady pink mocktail with red fruits on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
+<img alt="Lady Pink Sem Álcool" class="w-full h-full object-cover brutalist-img" data-alt="non-alcoholic lady pink mocktail with red fruits on dark background" src="res/img/Mocktails/lady_pink.webp"/>
 </div>
 </div>
-<div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
+<!-- <div class="bg-surface-container border border-surface-container-high relative flex flex-col h-full group">
 <div class="absolute top-3 right-3 z-10 bg-secondary text-on-secondary font-label-caps text-label-caps px-3 py-1 uppercase rounded-full">SEM ÁLCOOL</div>
 <div class="p-4 flex flex-col flex-grow">
 <h3 class="font-headline-md text-headline-md text-on-surface mb-2">Misty Soda Brasileirinha</h3>
@@ -811,7 +820,7 @@
 <div class="aspect-[3/4] w-full overflow-hidden bg-surface-container mt-auto">
 <img alt="Misty Soda Brasileirinha" class="w-full h-full object-cover brutalist-img" data-alt="misty soda brazileirinha flavor on dark background" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCZ7pMYItI5LSuYkjIxjiKO8RrDt-7kidMcqQGk34HxWWW6XmDh6mHpwMrHbOZjLQh58SZNGJYjRnP0PccmHxoYeWxCX0iD0SLduwYE1At6vHmodrrxBZaCzFivUI7vbS6aqq4LKY9KLNAFETldC6UaW07CGhJKg59mibJMSCOndR6VerAl76NNL8Q3TOCOFa9RnyXjLVUQC40a0sYtwiUmC0xjgrFB0JrhmsMFQVu2SDjnZOaQUXnd_q6H061YLz7ZXgVQedNqWCKJ"/>
 </div>
-</div>
+</div> -->
 </div>
 </section>
 <!-- Couvert info before footer -->
@@ -981,8 +990,13 @@ toggleSearch();
 <p class="font-body-md text-body-md text-on-surface text-center md:text-left">
     Usamos cookies para melhorar sua experiência. Ao continuar, você concorda com nossa Política de Privacidade.
   </p>
-<button class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-6 py-3 uppercase hover:bg-primary transition-colors whitespace-nowrap" onclick="window.location.href='cookies.html';">
+<div class="flex gap-3">
+<button class="bg-surface-container-high text-on-surface font-label-caps text-label-caps px-6 py-3 uppercase hover:bg-surface-container-high/80 transition-colors whitespace-nowrap border border-surface-container-high" onclick="window.location.href='cookies.html';">
+    TERMOS
+  </button>
+<button class="bg-primary-container text-on-primary-container font-label-caps text-label-caps px-6 py-3 uppercase hover:bg-primary transition-colors whitespace-nowrap" onclick="document.getElementById('cookie-banner').style.display='none';">
     ACEITAR
   </button>
+</div>
 </div>
 </body></html>
